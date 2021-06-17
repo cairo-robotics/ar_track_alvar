@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ar_track_alvar)
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+
 set(MSG_DEPS
     ar_track_alvar_msgs
     std_msgs
@@ -25,7 +29,10 @@ find_package(catkin COMPONENTS
         REQUIRED)
 
 find_package(Eigen3 REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 2.4.13.7 EXACT REQUIRED HINTS "/home/brad/libs/opencv24/release/installed/share/OpenCV")
+include_directories(BEFORE /home/brad/libs/opencv24/release/installed/include/opencv)
+include_directories(BEFORE /home/brad/libs/opencv24/release/installed/include)   
+link_directories(/home/brad/libs/opencv24/release/installed/lib)
 find_package(TinyXML REQUIRED)
 
 include(CheckCXXCompilerFlag)
@@ -105,6 +112,11 @@ add_library(ar_track_alvar
     src/MultiMarker.cpp
     src/MultiMarkerBundle.cpp
     src/MultiMarkerInitializer.cpp)
+
+
+message(WARNING "OpenCV_INCLUDE_DIRS: ${OpenCV_INCLUDE_DIRS}")
+message(WARNING "OpenCV_LIBS: ${OpenCV_LIBS}")
+
 target_link_libraries(ar_track_alvar ${OpenCV_LIBS} ${TinyXML_LIBRARIES} ${catkin_LIBRARIES})
 add_dependencies(ar_track_alvar ${GENCPP_DEPS})
 
