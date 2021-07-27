@@ -29,10 +29,10 @@ find_package(catkin COMPONENTS
         REQUIRED)
 
 find_package(Eigen3 REQUIRED)
-find_package(OpenCV 2.4.13.7 EXACT REQUIRED HINTS "/home/brad/libs/opencv24/release/installed/share/OpenCV")
-include_directories(BEFORE /home/brad/libs/opencv24/release/installed/include/opencv)
-include_directories(BEFORE /home/brad/libs/opencv24/release/installed/include)   
-link_directories(/home/brad/libs/opencv24/release/installed/lib)
+find_package(OpenCV 2.4.13.7 EXACT REQUIRED HINTS "$ENV{HOME}/opencv24/share/OpenCV")
+include_directories(BEFORE $ENV{HOME}/opencv24/include/opencv)
+include_directories(BEFORE $ENV{HOME}/opencv24/include)   
+link_directories($ENV{HOME}/opencv24/lib)
 find_package(TinyXML REQUIRED)
 
 include(CheckCXXCompilerFlag)
